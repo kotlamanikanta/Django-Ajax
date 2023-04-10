@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class ="text-center alert alert-danger">Django Ajax App</h1>
+        <div class ="row">
+
+            <div class="col-sm-4">
+                <h1 class="text-center alert-info">Students details</h1>
+        <from action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+         
+            <input type="button" class="btn btn-success" value="Save" id="btnsave">
+         
+        </from> 
+
+
+            </div>
+
+            <div class="col-sm-7">
+        <h1 class="text-center alert-info"> list of students In Moth</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scop="col">Name</th>
+                    <th scop="col">Email</th>
+                    <th scop="col">Course</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                {% for st in stu %}
+                <tr>
+                    <td>{{st.name}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.course}}</td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+
+        </table>        
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+    
+   {% include 'ajax.html' %}  
+</body>
+</html>

@@ -1,0 +1,59 @@
+
+<script>
+    
+$('#btnsave').click(function(){
+    //console.log("Button Save Clicked");
+    output="";
+    console.log("enter");
+    let n=$('#nameid').val();
+    let e=$('#emailid').val();
+    let c=$('#courseid').val();
+
+    if(n==""){
+        console.log("please Enter name");
+    }else if(e==""){
+        console.log("enter the Email");    
+    }else if(c==""){
+        console.log("Enter the course");
+    }else{
+        // console.log(n);
+        // console.log(e);
+        // console.log(c);
+
+        mydata= {name:n,email:e,course:c};
+        $.ajax({
+            url:"{% url 'data' %}",
+            method:"POST",
+            data: mydata,
+            dataType:"json",
+            success:function(data){
+                console.log(data.status)
+                x=data.student_data;
+
+                if(data.status=='Data Saved'){
+                    console.log('Data Sumitted');
+
+                    for(i=0;i<x.length;i++){
+                        output +="<td><td>"+ x[i].name +
+                            "</td><td>" + x[i].email +
+                            "</td><td>" + x[i].course
+
+
+                    }
+                    $('#tbody').html(output);
+                    $('form')[0].reset();
+                }
+
+                if(data.status==' Not Saved'){
+                    console.log('Unable Submit Data');
+
+                }
+
+                
+            },
+
+        });
+    }
+
+})
+</script>
