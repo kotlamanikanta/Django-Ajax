@@ -25,8 +25,8 @@ $('#btnsave').click(function(){
             url:"{% url 'data' %}",
             method:"POST",
             data: mydata,
-            dataType:"json",
             success:function(data){
+                alert("Data submitted")
                 console.log(data.status)
                 x=data.student_data;
 
@@ -34,14 +34,15 @@ $('#btnsave').click(function(){
                     console.log('Data Sumitted');
 
                     for(i=0;i<x.length;i++){
-                        output +="<td><td>"+ x[i].name +
+                        output +="<tr><td>"+ x[i].name +
                             "</td><td>" + x[i].email +
-                            "</td><td>" + x[i].course
+                            "</td><td>" + x[i].course +"</td></td>"
 
 
                     }
                     $('#tbody').html(output);
-                    $('form')[0].reset();
+                    $('#myform')[0].reset();
+                    // $('#myform').trigger("reset");
                 }
 
                 if(data.status==' Not Saved'){
@@ -55,5 +56,66 @@ $('#btnsave').click(function(){
         });
     }
 
+});
+$("#btnget").click(function(){
+    console.log("enter")
+    $.ajax({
+        url:"{% url 'get_ajax' %}",
+        method:"GET",
+        success:function(data){
+            console.log("hi");
+            x=data.html_string;
+            console.log(x)
+
+                if(data.status=='Data Saved'){
+                    console.log('Data Sumitted');
+                }
+                $('#bbody').html(x);
+                // $('form')[0].reset();
+                    // $('#myform').trigger("reset");
+        }
+
+        
+    })
+
 })
 </script>
+
+<script>
+    function onFunction(){
+        console.log("c-enter")
+        // let n=$('#nameid').val();
+        // let e=$('#emailid').val();
+        // let c=$('#courseid').val();
+        let d=$('input[name=csrfmiddlewaretoken]').val();
+        // mydata= {name:n,email:e,course:c};
+        $.ajax({
+            url:"{% url 'fun_change' %}",
+            method:"POST",
+            data: $("#myform").serialize(),
+            success: function(data){
+                // console.log(data.status)
+                x=data;
+                console.log("hi");
+                console.log(x);
+                // console.log(data.name+"<br>"+data.email+"<br>"+data.course+"<br>");
+                $("#fullName").html(data["name"]);
+                $("#startingname").html(data["firstletter"]);
+                $("#Endingname").html(data["lastletter"]);
+                $("#alphabet").html(data["alph"]);
+                $("#Email").html(data["email"]);
+                $("#Emailchar").html(data["emaillen"]);
+                $("#specialchar").html(data["special"]);
+                $("#course").html(data["course"]);
+                // $("#mbody").html(data.name+"<br>"+data.email+"<br>"+data.course+"<br>");
+
+            }
+            
+
+              
+
+        });
+
+
+    }
+</script>  

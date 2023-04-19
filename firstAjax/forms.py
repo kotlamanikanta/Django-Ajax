@@ -9,9 +9,25 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = ["name", "email", "course"]
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control", "id": "nameid"}),
-            "email": forms.EmailInput(attrs={"class": "form-control", "id": "emailid"}),
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "id": "nameid",
+                    "onchange": "onFunction()",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "id": "emailid",
+                    "onchange": "onFunction()",
+                }
+            ),
             "course": forms.TextInput(
-                attrs={"class": "form-control", "id": "courseid"}
+                attrs={
+                    "class": "form-control",
+                    "id": "courseid",
+                    "onchange": "onFunction()",
+                }
             ),
         }
